@@ -1,0 +1,43 @@
+{
+  "name": "react-leaflet-d3-svg-overlay",
+  "version": "1.0.0",
+  "description": "React wrapper of leaflet-d3-svg-overlay",
+  "main": "dist/react-leaflet-d3-svg-overlay.min.js",
+  "scripts": {
+    "build": "npm run build:lib && npm run build:dist",
+    "build:lib": "node_modules/@babel/cli/bin/babel.js src --out-dir lib",
+    "build:dist": "node_modules/webpack-cli/bin/cli.js src/index.js --output dist/react-leaflet-d3-svg-overlay.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johannesloetzsch/react-leaflet-d3-svg-overlay.git"
+  },
+  "keywords": [
+    "react",
+    "leaflet",
+    "d3",
+    "svg",
+    "overlay",
+    "react-leaflet",
+    "leaflet-d3",
+    "leaflet-svg",
+    "react-leaflet-d3"
+  ],
+  "author": "Johannes Lötzsch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johannesloetzsch/react-leaflet-d3-svg-overlay/issues"
+  },
+  "homepage": "https://github.com/johannesloetzsch/react-leaflet-d3-svg-overlay#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/cli": "^7.6.2",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "react-leaflet": "^2.1.4",
+    "leaflet-d3-svg-overlay": "^2.2.0",
+    "d3": "^5.12.0"
+  }
+}
