@@ -1,0 +1,77 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>react-leaflet-d3-svg-overlay Example for react-leaflet v2</title>
+		<meta name="description" content="https://github.com/johannesloetzsch/react-leaflet-d3-svg-overlay">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.css" rel="stylesheet">
+		<style>
+			.leaflet-container {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container"></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.23.1/babel.js"></script>
+		<script src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+		<script src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet-src.js"></script>
+		<script src="https://unpkg.com/react-leaflet@2.1.4/dist/react-leaflet.js"></script>
+		<script src="../dist/react-leaflet-d3-svg-overlay.min.js"></script>
+		<script type="text/babel">
+			const { Map, TileLayer, withLeaflet } = ReactLeaflet;
+			const WrappedD3SvgOverlay = withLeaflet(D3SvgOverlay.D3SvgOverlay);
+
+			/** This function defines what D3 should draw.
+			    It is like `drawCallback` from `Leaflet.D3SvgOverlay`, but with an additonal argument `data`.
+			    For details see https://github.com/teralytics/Leaflet.D3SvgOverlay#API **/
+			function myDrawCallback(sel, proj, data) {
+			  var upd = sel.selectAll('path').data(data);
+			  upd.enter()
+			    .append('path')
+			    .attr('d', proj.pathFromGeojson)
+			    .attr('stroke', 'black')
+			    .attr('fill', function(){ return d3.hsl(Math.random() * 360, 0.9, 0.5) })
+			    .attr('fill-opacity', '0.5');
+			  upd.attr('stroke-width', 1 / proj.scale);
+			};
+
+			class SimpleExample extends React.Component {
+				constructor() {
+					super();
+					this.state = {
+						center: [50, 10],
+						zoom: 4,
+            data: []
+					}
+				}
+
+				componentDidMount() {
+				  var component = this;
+					/** Asynchronous data loading **/
+					d3.json("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json",
+                  function(result){ component.setState({data: result.features}) });
+				}
+
+				render() {
+					return (
+						<Map {...this.state}>
+							<TileLayer
+								attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+								url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+							/>
+							{/** The component expects 2 props: `data` and `drawCallback` **/}
+							<WrappedD3SvgOverlay data={this.state.data} drawCallback={myDrawCallback} />
+						</Map>
+					);
+				}
+			}
+
+			ReactDOM.render(<SimpleExample />, document.getElementById('container'))
+		</script>
+	</body>
+</html>
