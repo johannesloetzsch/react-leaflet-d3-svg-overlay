@@ -44,8 +44,8 @@
 				constructor() {
 					super();
 					this.state = {
-						center: [50, 10],
-						zoom: 4,
+						center: [40, 10],
+						zoom: 3,
             data: []
 					}
 				}
@@ -61,8 +61,8 @@
 					return (
 						<Map {...this.state}>
 							<TileLayer
-								attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-								url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+								attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+								url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
 							/>
 							{/** The component expects 2 props: `data` and `drawCallback` **/}
 							<WrappedD3SvgOverlay data={this.state.data} drawCallback={myDrawCallback} />
