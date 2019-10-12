@@ -2,6 +2,8 @@
 
 React wrapper of [Leaflet.D3SvgOverlay](src/Leaflet.D3SvgOverlay/README.md) for [react-leaflet](https://react-leaflet.js.org/).
 
+[![npm](https://img.shields.io/npm/v/react-leaflet-d3-svg-overlay)](https://www.npmjs.com/package/react-leaflet-d3-svg-overlay)
+
 ## Demo and usage
 
 * [GeoJSON example](https://johannesloetzsch.github.io/react-leaflet-d3-svg-overlay/example/index.html)
