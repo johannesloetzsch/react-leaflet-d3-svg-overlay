@@ -16,11 +16,6 @@ module.exports = {
 			commonjs2: 'leaflet',
 			root: 'L'
 		},
-		'react-leaflet': {
-			commonjs: 'react-leaflet',
-			commonjs2: 'react-leaflet',
-			root: 'ReactLeaflet'
-		}
 	},
 	mode: 'production'
 };

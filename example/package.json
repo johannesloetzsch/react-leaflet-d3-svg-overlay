@@ -1,0 +1,16 @@
+{
+  "name": "react-leaflet-d3-svg-overlay-examples",
+  "version": "1.0.0",
+  "description": "How react-leaflet-d3-svg-overlay can be used",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/standalone": "^7.6.4"
+  },
+  "dependencies": {
+    "d3": "^5.12.0",
+    "leaflet": "^1.5.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-leaflet": "^2.4.0"
+  }
+}

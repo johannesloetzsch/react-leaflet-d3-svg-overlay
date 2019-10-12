@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>L.D3SvgOverlay: Leaflet + D3, simple example</title>
+
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map-canvas { height: 100% }
+    </style>
+    <link href='../../../example/node_modules/leaflet/dist/leaflet.css' rel='stylesheet' type='text/css'/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+</head>
+<body>
+  <div id="map-canvas"></div>
+    
+<script src="../../../example/node_modules/leaflet/dist/leaflet.js"></script>
+<script src="../../../example/node_modules/d3/dist/d3.min.js"></script>
+
+<script src="../../../dist/react-leaflet-d3-svg-overlay.min.js"></script>
+<script type="module">
+//import '../L.D3SvgOverlay.js';   /** This would work as well **/
+
+var map = L.map("map-canvas",{center:[46.81509864599243, 8.3221435546875],zoom:8});
+var Esri_WorldTopoMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+});
+Esri_WorldTopoMap.addTo(map);
+
+var cities = [];
+var citiesOverlay = L.d3SvgOverlay(function(sel,proj){
+	
+  var minLogPop = Math.log2(d3.min(cities,function(d){return d.population;}));
+  var citiesUpd = sel.selectAll('circle').data(cities);
+  citiesUpd.enter()
+    .append('circle')
+    .attr('r',function(d){return Math.log2(d.population) - minLogPop + 2;})
+    .attr('cx',function(d){return proj.latLngToLayerPoint(d.latLng).x;})
+    .attr('cy',function(d){return proj.latLngToLayerPoint(d.latLng).y;})
+    .attr('stroke','black')
+    .attr('stroke-width',1)
+    .attr('fill',function(d){return (d.place == 'city') ? "red" : "blue";});
+});
+
+d3.csv("swiss-cities.csv").then(function(data){
+  cities = data.map(function(d){
+    d.latLng = [+d.lat,+d.lng];
+    d.population = (d.population == '') ? 2000 : +d.population; //NAs
+    return d;
+  });
+  citiesOverlay.addTo(map);
+});
+
+
+</script>
+    
+</body>
+</html>

@@ -1,7 +1,7 @@
 import { MapLayer } from 'react-leaflet';
-import 'leaflet-d3-svg-overlay';
+import './Leaflet.D3SvgOverlay/L.D3SvgOverlay.js';
 
-export default class D3SvgOverlay extends MapLayer {
+export default class ReactLeaflet_D3SvgOverlay extends MapLayer {
   createLeafletElement(props) {
     const { data, drawCallback } = this.props;
     return L.d3SvgOverlay(function(sel, proj) {

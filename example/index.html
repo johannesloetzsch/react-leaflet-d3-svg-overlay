@@ -3,7 +3,7 @@
 		<meta charset="UTF-8">
 		<title>react-leaflet-d3-svg-overlay Example for react-leaflet v2</title>
 		<meta name="description" content="https://github.com/johannesloetzsch/react-leaflet-d3-svg-overlay">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.css" rel="stylesheet">
+    <link href='node_modules/leaflet/dist/leaflet.css' rel='stylesheet' type='text/css'/>
 		<style>
 			.leaflet-container {
 				position: absolute;
@@ -16,15 +16,17 @@
 	</head>
 	<body>
 		<div id="container"></div>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.23.1/babel.js"></script>
-		<script src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
-		<script src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet-src.js"></script>
-		<script src="https://unpkg.com/react-leaflet@2.1.4/dist/react-leaflet.js"></script>
+    <script src="node_modules/leaflet/dist/leaflet.js"></script>
+		<script src="node_modules/d3/dist/d3.min.js"></script>-
+		<script src="node_modules/react/umd/react.production.min.js"></script>
+		<script src="node_modules/react-dom/umd/react-dom.production.min.js"></script>
+		<script src="node_modules/react-leaflet/dist/react-leaflet.min.js"></script>
+
 		<script src="../dist/react-leaflet-d3-svg-overlay.min.js"></script>
+		<script src="node_modules/@babel/standalone/babel.min.js"></script>
 		<script type="text/babel">
 			const { Map, TileLayer, withLeaflet } = ReactLeaflet;
-			const WrappedD3SvgOverlay = withLeaflet(D3SvgOverlay.D3SvgOverlay);
+			const WrappedD3SvgOverlay = withLeaflet(D3SvgOverlay.ReactLeaflet_D3SvgOverlay);
 
 			/** This function defines what D3 should draw.
 			    It is like `drawCallback` from `Leaflet.D3SvgOverlay`, but with an additonal argument `data`.
@@ -53,7 +55,7 @@
 				componentDidMount() {
 				  var component = this;
 					/** Asynchronous data loading **/
-					d3.json("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json",
+					d3.json(/*https://raw.githubusercontent.com/johan/world.geo.json/master/*/"countries.geo.json").then(
                   function(result){ component.setState({data: result.features}) });
 				}
 
